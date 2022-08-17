@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/jabin/AndroidStudioProjects/SliceDemo/sliceprovider/src/main/res/drawable/ic_android_24.xml" value="0.3195" />
+        <entry key="..\:/Users/jabin/AndroidStudioProjects/SliceDemo/sliceprovider/src/main/res/layout/activity_main.xml" value="0.31666666666666665" />
+        <entry key="..\:/Users/jabin/AndroidStudioProjects/SliceDemo/sliceviewer/src/main/res/drawable/ic_arrow_forward_black_24dp.xml" value="0.552" />
+        <entry key="..\:/Users/jabin/AndroidStudioProjects/SliceDemo/sliceviewer/src/main/res/layout/activity_single_slice_viewer.xml" value="0.31666666666666665" />
+        <entry key="..\:/Users/jabin/AndroidStudioProjects/SliceDemo/sliceviewer/src/main/res/layout/activity_slice_viewer.xml" value="0.5588541666666667" />
+        <entry key="..\:/Users/jabin/AndroidStudioProjects/SliceDemo/sliceviewer/src/main/res/layout/slice_row.xml" value="0.5588541666666667" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
