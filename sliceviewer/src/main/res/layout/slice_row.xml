@@ -19,7 +19,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_tiny"
-    android:padding="@dimen/margin_tiny"
+    app:contentPadding="@dimen/margin_tiny"
+    app:cardUseCompatPadding="true"
     app:cardCornerRadius="@dimen/margin_tiny">
 
         <androidx.slice.widget.SliceView

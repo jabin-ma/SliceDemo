@@ -17,12 +17,10 @@
 package com.example.sliceviewer.ui.list
 
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
@@ -33,7 +31,6 @@ import androidx.slice.widget.SliceView.SliceMode
 import com.example.sliceviewer.R
 import com.example.sliceviewer.R.layout
 import com.example.sliceviewer.util.bind
-import com.example.sliceviewer.util.convertToSliceViewerScheme
 
 class SliceAdapter(
     val lifecycleOwner: LifecycleOwner,
@@ -42,28 +39,32 @@ class SliceAdapter(
     SlicesDiff
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SliceViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
+        val cardView = LayoutInflater.from(parent.context)
             .inflate(layout.slice_row, parent, false)
-        return SliceViewHolder(itemView, selectedMode, lifecycleOwner)
+        return SliceViewHolder(cardView, selectedMode, lifecycleOwner)
     }
 
     override fun onBindViewHolder(holder: SliceViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
 }
 
 class SliceViewHolder(
-    view: View,
+    cardView: View,
     @SliceMode val selectedMode: LiveData<Int>,
     private val lifecycleOwner: LifecycleOwner
-) : ViewHolder(view) {
+) : ViewHolder(cardView) {
+    private val context: Context = cardView.context
+    private val sliceView: SliceView = cardView.findViewById(R.id.slice)
+    private var needBind = true;
 
-    private val context: Context = view.context
-    private val sliceView: SliceView = view.findViewById(R.id.slice)
-    private val uriGroup = view
-
-    // Context, LifecycleOwner, onSliceActionListener, OnClickListener, scrollable, OnLongClickListener,
     fun bind(uri: Uri) {
+        if (!needBind) return
+        needBind = false
         sliceView.bind(
             context = context,
             lifecycleOwner = lifecycleOwner,
@@ -71,9 +72,7 @@ class SliceViewHolder(
             scrollable = false
         )
 
-        uriGroup.setOnClickListener {
-            context.startActivity(Intent(Intent.ACTION_VIEW, uri.convertToSliceViewerScheme()))
-        }
+        sliceView.isClickable=false
         selectedMode.observe(lifecycleOwner) {
             sliceView.mode = it ?: SliceView.MODE_LARGE
         }

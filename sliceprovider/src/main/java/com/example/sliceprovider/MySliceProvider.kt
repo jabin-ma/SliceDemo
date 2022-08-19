@@ -2,6 +2,7 @@ package com.example.sliceprovider
 
 import android.annotation.SuppressLint
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_MUTABLE
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -16,7 +17,6 @@ import androidx.slice.builders.ListBuilder.*
 import java.util.*
 import kotlin.concurrent.schedule
 
-@SuppressLint("UnspecifiedImmutableFlag")
 class MySliceProvider : SliceProvider() {
 
     companion object {
@@ -167,7 +167,7 @@ class MySliceProvider : SliceProvider() {
             MyBroadcastReceiver.EXTRA_VALUE_KEY, wifiEnabled
         )
         return SliceAction.createToggle(
-            PendingIntent.getBroadcast(context!!, 0, intent, 0),
+            PendingIntent.getBroadcast(context!!, 0, intent, FLAG_MUTABLE),
             "Toggle Wi-Fi",
             wifiEnabled
         )
@@ -186,7 +186,7 @@ class MySliceProvider : SliceProvider() {
             ).setAction(MyBroadcastReceiver.INCREMENT_COUNTER_ACTION).putExtra(
                 MyBroadcastReceiver.EXTRA_VALUE_KEY,
                 MyBroadcastReceiver.currentValue + 1
-            ), PendingIntent.FLAG_UPDATE_CURRENT
+            ), PendingIntent.FLAG_UPDATE_CURRENT or FLAG_MUTABLE
         )
 
         val decrementPendingIntent = PendingIntent.getBroadcast(
@@ -198,7 +198,7 @@ class MySliceProvider : SliceProvider() {
             ).setAction(MyBroadcastReceiver.DECREMENT_COUNTER_ACTION).putExtra(
                 MyBroadcastReceiver.EXTRA_VALUE_KEY,
                 MyBroadcastReceiver.currentValue - 1
-            ), PendingIntent.FLAG_UPDATE_CURRENT
+            ), PendingIntent.FLAG_UPDATE_CURRENT or FLAG_MUTABLE
         )
 
         val incrementAction = SliceAction.create(
@@ -457,7 +457,7 @@ class MySliceProvider : SliceProvider() {
                     context!!,
                     0,
                     Intent(context!!, MainActivity::class.java),
-                    0
+                    FLAG_MUTABLE
                 )
             )
         }
@@ -552,7 +552,7 @@ class MySliceProvider : SliceProvider() {
             context!!,
             0,
             Intent(Settings.ACTION_SETTINGS),
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_UPDATE_CURRENT or FLAG_MUTABLE
         )
     }
 
@@ -564,14 +564,14 @@ class MySliceProvider : SliceProvider() {
             context!!,
             0,
             mapIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_UPDATE_CURRENT or FLAG_MUTABLE
         )
     }
 
     private fun createPrimaryOpenMainActivityAction(): SliceAction {
         val intent = Intent(context!!, MainActivity::class.java)
         return SliceAction.create(
-            PendingIntent.getActivity(context!!, 0, intent, 0),
+            PendingIntent.getActivity(context!!, 0, intent,  FLAG_MUTABLE),
             IconCompat.createWithResource(context!!, R.drawable.ic_open_24),
             ICON_IMAGE,
             "Open MainActivity."
@@ -581,7 +581,7 @@ class MySliceProvider : SliceProvider() {
     private fun createBrightnessAction(): SliceAction {
         val intent = Intent(context!!, MyBroadcastReceiver::class.java)
         return SliceAction.create(
-            PendingIntent.getBroadcast(context!!, 0, intent, 0),
+            PendingIntent.getBroadcast(context!!, 0, intent,  FLAG_MUTABLE),
             IconCompat.createWithResource(context!!, R.drawable.ic_brightness_auto_24),
             ICON_IMAGE,
             "Toggle adaptive brightness"
@@ -594,7 +594,7 @@ class MySliceProvider : SliceProvider() {
         imageMode: Int
     ): SliceAction {
         return SliceAction.create(
-            PendingIntent.getActivity(context!!, 0, actionIntent, 0),
+            PendingIntent.getActivity(context!!, 0, actionIntent,  FLAG_MUTABLE),
             IconCompat.createWithResource(context!!, drawableInt),
             imageMode,
             "Open MainActivity."

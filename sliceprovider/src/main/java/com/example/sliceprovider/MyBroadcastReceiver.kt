@@ -14,8 +14,8 @@ class MyBroadcastReceiver : BroadcastReceiver() {
         const val DECREMENT_COUNTER_ACTION = "com.example.sliceprovider.MyBroadcastReceiver.ACTION_DECREMENT_COUNTER"
         const val INCREMENT_COUNTER_ACTION = "com.example.sliceprovider.MyBroadcastReceiver.ACTION_INCREMENT_COUNTER"
         var currentValue = 0
-        val dynamicSliceUri = Uri.parse("content://com.example.sliceprovider/dynamicCountSlice")
-        val wifiToggleUri = Uri.parse("content://com.example.sliceprovider/wifiToggleAction")
+        val dynamicSliceUri: Uri = Uri.parse("content://com.example.sliceprovider/dynamicCountSlice")
+        val wifiToggleUri: Uri = Uri.parse("content://com.example.sliceprovider/wifiToggleAction")
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
